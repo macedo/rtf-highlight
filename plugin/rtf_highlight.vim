@@ -31,13 +31,9 @@ function! RTFHighlight(line1,line2,...)
   endif
   
   let content = join(getline(a:line1,a:line2),"\n")
-  let command = "highlight --syntax " . a:1 . " -s " . g:rtfh_theme . " -R -k " . g:rtfh_font . " -K " . g:rtfh_size . " 2> /dev/null"
-  let output = system(command,content)
-  " let @* = output
-  " for some reason text copied this way
-  " gets pasted as escaped plain text in keynote
-  " but this works well with pbcopy
-  let retval = system("pbcopy",output)
+  let command = "highlight --syntax " . a:1 . " -s " . g:rtfh_theme . " -O rtf -k " . g:rtfh_font . " -K " . g:rtfh_size . " 2> /dev/null"
+  let output = system(command, content)
+  let retval = system("pbcopy", output)
 endfunction
 
 " map it to a command
